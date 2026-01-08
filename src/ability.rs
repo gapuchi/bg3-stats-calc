@@ -9,8 +9,8 @@ pub enum AbilityModifier {
 impl fmt::Display for AbilityModifier {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         match self {
-            AbilityModifier::Strength => write!(f, "Strength"),
-            AbilityModifier::Dexterity => write!(f, "Dexterity"),
+            AbilityModifier::Strength => write!(f, "Str"),
+            AbilityModifier::Dexterity => write!(f, "Dex"),
         }
     }
 }

@@ -1,7 +1,10 @@
-use crate::{ability::AbilityModifier, char::CharacterStats, damage::Damage, die::Die};
+use colored::Colorize;
+
+use crate::{ability::AbilityModifier, attack::Attack, char::CharacterStats, damage::Damage};
 
 pub struct Weapon {
     pub ability_modifier: AbilityModifier,
+    pub attack: Box<dyn Attack>,
     pub damage: Box<dyn Damage>,
 }
 
@@ -9,21 +12,18 @@ impl Weapon {
     pub fn damage_roll(&self, character_stats: CharacterStats) -> i32 {
         let (damage, descr) = self.damage.roll(character_stats, self.ability_modifier);
 
+        println!("\n{}", "=== Damage Roll ===".bold().bright_yellow());
         println!("{} = {}", damage, descr);
 
         damage
     }
 
     pub fn attack_roll(&self, character_stats: CharacterStats) -> i32 {
-        let base = Die::new(20).roll();
+        let (attack, descr) = self.attack.roll(character_stats, self.ability_modifier);
 
-        let relevant_stat = match self.ability_modifier {
-            AbilityModifier::Strength => character_stats.strength,
-            AbilityModifier::Dexterity => character_stats.dexterity,
-        };
+        println!("\n{}", "=== Attack Roll ===".bold().bright_yellow());
+        println!("{} = {}", attack, descr);
 
-        let modifier = (relevant_stat - 10) / 2;
-
-        base + modifier
+        attack
     }
 }

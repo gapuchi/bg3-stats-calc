@@ -1,8 +1,7 @@
-use colored::*;
-
 use crate::{char::Character, weapon_factory::WeaponFactory};
 
 mod ability;
+mod attack;
 mod char;
 mod damage;
 mod die;
@@ -14,7 +13,6 @@ fn main() {
 
     char.equip_weapon(WeaponFactory::halberd());
 
-    println!("\n{}", "=== Attack Rolls ===".bold().bright_yellow());
     char.attack();
     char.attack();
 

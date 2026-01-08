@@ -9,6 +9,7 @@ impl Character {
     pub fn new() -> Self {
         Character {
             stats: CharacterStats {
+                level: 1,
                 strength: 16,
                 dexterity: 8,
             },
@@ -26,8 +27,7 @@ impl Character {
 
     pub fn attack(&self) {
         if let Some(weapon) = &self.weapon {
-            let attack = weapon.attack_roll(self.stats);
-            print!("{}\n", attack);
+            weapon.attack_roll(self.stats);
             weapon.damage_roll(self.stats);
         }
     }
@@ -35,6 +35,7 @@ impl Character {
 
 #[derive(Clone, Copy)]
 pub struct CharacterStats {
+    pub level: i32,
     pub strength: i32,
     pub dexterity: i32,
 }
