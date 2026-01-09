@@ -14,3 +14,7 @@ impl fmt::Display for AbilityModifier {
         }
     }
 }
+
+pub fn get_modifier(stat: i32) -> i32 {
+    (stat - 10) / 2
+}

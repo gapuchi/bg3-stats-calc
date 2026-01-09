@@ -1,4 +1,8 @@
-use crate::{ability::AbilityModifier, char::CharacterStats, die::Die};
+use crate::{
+    ability::{AbilityModifier, get_modifier},
+    char::CharacterStats,
+    die::Die,
+};
 
 pub trait Attack {
     fn roll(
@@ -31,8 +35,8 @@ impl Attack for AttackAbilityModifier {
         let (inner_val, inner_str) = self.inner.roll(stats, ability_modifier);
 
         let val = match ability_modifier {
-            AbilityModifier::Strength => (stats.strength - 10) / 2,
-            AbilityModifier::Dexterity => (stats.dexterity - 10) / 2,
+            AbilityModifier::Strength => get_modifier(stats.strength),
+            AbilityModifier::Dexterity => get_modifier(stats.dexterity),
         };
 
         (
